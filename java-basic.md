@@ -72,3 +72,11 @@ System.out.println(x == y);
 参考：
 - https://docs.oracle.com/javase/tutorial/java/data/autoboxing.html
 - https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html
+
+## String、StringBuffer、StringBuilder 的区别是什么?
+- `String` 是不可变的，一旦创建其值就无法改变，它是一个 `final` 类，不可以被继承，内部使用了一个不可变的 `final char value[]` 数组来保存字符串内容；
+- `StringBuilder`、`StringBuffer` 都是可变的字符串，都是继承自 `AbstractStringBuilder`，内部包含一个字符数组 `char[] value`，数组由于没有使用 `final` 修饰，所以在长度不够时，可以重新创建一个长度更长的新的数组用于扩容；
+- `StringBuffer` 是线程安全的，内部通过 `synchronized` 来实现线程安全；
+- `StringBuilder` 是非线程安全的；
+- 在需要大量字符串拼接的场景下，使用 `StringBuilder`、`StringBuffer` 的 `append` 性能会优于直接用 `String` 和 `+` 运算符来拼接字符串，因为 `String` 是不可变的，只能通过大量创建新的 `String` 实例来实现大量的字符串拼接；
+- 在无需考虑线程安全的情况下，`StringBuilder` 性能会优于 `StringBuffer`，因为 `StringBuffer` 内部需要通过 `synchronized`  来保证线程安全。
