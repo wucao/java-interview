@@ -80,3 +80,18 @@ System.out.println(x == y);
 - `StringBuilder` 是非线程安全的；
 - 在需要大量字符串拼接的场景下，使用 `StringBuilder`、`StringBuffer` 的 `append` 性能会优于直接用 `String` 和 `+` 运算符来拼接字符串，因为 `String` 是不可变的，只能通过大量创建新的 `String` 实例来实现大量的字符串拼接；
 - 在无需考虑线程安全的情况下，`StringBuilder` 性能会优于 `StringBuffer`，因为 `StringBuffer` 内部需要通过 `synchronized`  来保证线程安全。
+
+## 以下代码的运行结果是什么？为什么？
+```java
+ArrayList<Integer> l1 = new ArrayList<>();
+ArrayList<String> l2 = new ArrayList<>();
+System.out.println(l1.getClass() == l2.getClass());
+```
+
+运行结果：true
+
+Java 通过类型擦除（type erasure）的方式来实现泛型。Java 语言中引入泛型是为了在编译时提供更严格的类型检查，在编译完成后的 .class 文件中以及运行时并不包含泛型信息。
+
+在以上程序中，由于类型擦除的原因，两个 `ArrayList` 对象对应的类型是同一个 `ArrayList.class`，
+
+- https://docs.oracle.com/javase/tutorial/java/generics/erasure.html
