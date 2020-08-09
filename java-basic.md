@@ -96,6 +96,14 @@ Java 通过类型擦除（type erasure）的方式来实现泛型。Java 语言�
 
 - https://docs.oracle.com/javase/tutorial/java/generics/erasure.html
 
+## Java 中 final、finally、finalize 分别是什么意思？
+- final 用来修饰类、变量、方法
+    - final 修饰类，表示这个类不可以被继承
+    - final 修饰变量，表示这个变量不能被修改
+    - final 修饰方法，表示这个方法不能被重写
+- finally 用于异常处理中，表示一段代码最终一定会被执行，不管有没有抛出异常，经常被用在需要释放资源的情况下；
+- finalize 是 Object 类的一个方法，会在一个对象被垃圾回收之前调用
+
 ## Integer.MAX_VALUE + 1 的结果是的？为什么？
 Java 使用补码（two's complement）来表示有符号的数值。
 
@@ -104,4 +112,3 @@ Integer.MAX_VALUE 对应的二进制是：01111111 11111111 11111111 11111111，
 在此基础上加1的结果是：10000000 00000000 00000000 00000000，得到的结果符号位变成了 1，表示负数；
 
 该结果是 Integer.MIN_VALUE 的补码值。
-
