@@ -95,3 +95,13 @@ Java 通过类型擦除（type erasure）的方式来实现泛型。Java 语言�
 在以上程序中，由于类型擦除的原因，两个 `ArrayList` 对象对应的类型是同一个 `ArrayList.class`，
 
 - https://docs.oracle.com/javase/tutorial/java/generics/erasure.html
+
+## Integer.MAX_VALUE + 1 的结果是的？为什么？
+Java 使用补码（two's complement）来表示有符号的数值。
+
+Integer.MAX_VALUE 对应的二进制是：01111111 11111111 11111111 11111111，其中最左边一位 0 是符号位，表示正数；
+
+在此基础上加1的结果是：10000000 00000000 00000000 00000000，得到的结果符号位变成了 1，表示负数；
+
+该结果是 Integer.MIN_VALUE 的补码值。
+
