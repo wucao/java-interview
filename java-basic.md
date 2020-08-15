@@ -34,8 +34,7 @@ Java 是编译型语言还是解释型语言：
 - https://docs.oracle.com/javase/specs/jls/se8/html/jls-4.html
 
 ## 重写 equals 方法和 hashCode 方法有什么规则？
-- 当重写 `equals` 方法时，一般也要重写 `hashCode` 方法
-- 两个用 `equals` 比较结果相等的对象的 hashCode 值必须要相等；
+- 当重写 `equals` 方法时，一般也要重写 `hashCode` 方法，两个用 `equals` 比较结果相等的对象的 hashCode 值必须要相等；
 - 两个用 `equals` 比较结果不相等的对象，并不强制要求 hashCode 值必须不相等，也就是两个 hashCode 相等的对象不一定通过 `equals` 比较是相等的；
 - 为了提高使用到 `hashCode` 方法的一些数据结构（例如 HashMap）的性能，应该尽量避免哈希冲突（即用 `equals` 比较不相等的两个对象 hashCode 一致）；
 - 一些用到 `hashCode` 方法的数据结构（例如 HashMap），会先用 `hashCode` 方法缩小查找范围，再用 `equals` 方法对比是否相等。如果重写两个方法时出现 `equals` 比较相等的对象 hashCode 不一致，那么在 HashMap 查找时，可能会因此查找失败。
@@ -76,8 +75,9 @@ System.out.println(x == y);
 ## String、StringBuffer、StringBuilder 的区别是什么?
 - `String` 是不可变的，一旦创建其值就无法改变，它是一个 `final` 类，不可以被继承，内部使用了一个不可变的 `final char value[]` 数组来保存字符串内容；
 - `StringBuilder`、`StringBuffer` 都是可变的字符串，都是继承自 `AbstractStringBuilder`，内部包含一个字符数组 `char[] value`，数组由于没有使用 `final` 修饰，所以在长度不够时，可以重新创建一个长度更长的新的数组用于扩容；
-- `StringBuffer` 是线程安全的，内部通过 `synchronized` 来实现线程安全；
-- `StringBuilder` 是非线程安全的；
+- `StringBuffer` 是线程安全的，内部通过 `synchronized` 来实现线程安全，`StringBuilder` 是非线程安全的；
+
+使用场景：
 - 在需要大量字符串拼接的场景下，使用 `StringBuilder`、`StringBuffer` 的 `append` 性能会优于直接用 `String` 和 `+` 运算符来拼接字符串，因为 `String` 是不可变的，只能通过大量创建新的 `String` 实例来实现大量的字符串拼接；
 - 在无需考虑线程安全的情况下，`StringBuilder` 性能会优于 `StringBuffer`，因为 `StringBuffer` 内部需要通过 `synchronized`  来保证线程安全。
 
@@ -107,8 +107,6 @@ Java 通过类型擦除（type erasure）的方式来实现泛型。Java 语言�
 ## Integer.MAX_VALUE + 1 的结果是的？为什么？
 Java 使用补码（two's complement）来表示有符号的数值。
 
-Integer.MAX_VALUE 对应的二进制是：01111111 11111111 11111111 11111111，其中最左边一位 0 是符号位，表示正数；
+Integer.MAX_VALUE 对应的二进制补码是：01111111 11111111 11111111 11111111，其中最左边一位 0 是符号位，表示正数；
 
-在此基础上加1的结果是：10000000 00000000 00000000 00000000，得到的结果符号位变成了 1，表示负数；
-
-该结果是 Integer.MIN_VALUE 的补码值。
+在此基础上加1的结果是：10000000 00000000 00000000 00000000，得到的结果符号位变成了 1，表示负数，该结果是 Integer.MIN_VALUE 的二进制补码值。
